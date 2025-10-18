@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Design Patterns</string>
+    <string name="title_about">Sobre</string>
 </resources>

@@ -21,3 +21,12 @@ dependencyResolutionManagement {
 
 rootProject.name = "Design Patterns"
 include(":app")
+include(":core:common")
+include(":core:designsystem")
+include(":core:data")
+include(":domain")
+include(":feature:catalog")
+include(":feature:cart")
+include(":feature:auth")
+include(":feature:sync")
+include(":feature:about")
