@@ -13,3 +13,22 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# IDE (ignore entire IntelliJ/Android Studio project settings)
+.idea/
+
+# Build outputs across all modules
+**/build/
+
+# Gradle caches across modules
+**/.gradle/
+
+# Kotlin build caches (optional but common)
+**/.kotlin/
+
+# Native build outputs across modules
+**/.cxx/
+**/.externalNativeBuild/
+
+# Android test artifacts across modules
+**/captures/

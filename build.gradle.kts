@@ -7,3 +7,9 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.android.dynamic.feature) apply false
 }
+
+tasks.register("ci") {
+    group = "verification"
+    description = "Build + Test de todos os módulos"
+    dependsOn(":app:assembleDebug", "test")
+}

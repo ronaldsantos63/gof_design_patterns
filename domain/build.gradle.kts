@@ -1,13 +1,7 @@
 plugins {
-    id("java-library")
-    alias(libs.plugins.jetbrains.kotlin.jvm)
+    alias(libs.plugins.pocketshop.kotlin.library) // Kotlin/JVM puro (sem android)
 }
-java {
-    sourceCompatibility = JavaVersion.VERSION_11
-    targetCompatibility = JavaVersion.VERSION_11
-}
-kotlin {
-    compilerOptions {
-        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
-    }
+
+dependencies {
+    // O plugin já traz as dependências: coroutines-core e libs de testes
 }

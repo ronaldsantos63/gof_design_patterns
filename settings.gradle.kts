@@ -19,7 +19,14 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Design Patterns"
+// Ajuda nos imports de projects: :core:data, etc.
+enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+
+rootProject.name = "PocketShop"
+
+// Inclui o build de convenções
+includeBuild("build-logic")
+
 include(":app")
 include(":core:common")
 include(":core:designsystem")
@@ -29,4 +36,4 @@ include(":feature:catalog")
 include(":feature:cart")
 include(":feature:auth")
 include(":feature:sync")
-include(":feature:about")
+include(":feature:about") // Dynamic Feature Module
