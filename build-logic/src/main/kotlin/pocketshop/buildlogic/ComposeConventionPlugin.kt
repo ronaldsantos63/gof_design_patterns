@@ -31,7 +31,7 @@ class ComposeConventionPlugin : Plugin<Project> {
                 add("implementation", libs.findLibrary("androidx-activity-compose").get().get())
                 add("implementation", libs.findLibrary("androidx-lifecycle-runtime-compose").get().get())
                 add("implementation", libs.findLibrary("androidx-compose-navigation").get().get())
-                add("androidTestImplementation", platform(libs.findLibrary("androidx-compose-bom").get().get()))
+                add("implementation", libs.findLibrary("androidx-hilt-navigation-compose").get().get())
                 add("androidTestImplementation", libs.findLibrary("androidx-compose-ui-test-junit4").get().get())
                 add("debugImplementation", libs.findLibrary("androidx-compose-ui-tooling").get().get())
                 add("debugImplementation", libs.findLibrary("androidx-compose-ui-test-manifest").get().get())
