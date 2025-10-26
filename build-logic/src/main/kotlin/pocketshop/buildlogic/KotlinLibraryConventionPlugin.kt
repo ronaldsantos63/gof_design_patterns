@@ -10,6 +10,7 @@ class KotlinLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
             pluginManager.apply("org.jetbrains.kotlin.jvm")
+            pluginManager.apply("com.google.devtools.ksp")
 
             tasks.withType(KotlinCompile::class.java).configureEach {
                 compilerOptions {
@@ -19,7 +20,11 @@ class KotlinLibraryConventionPlugin : Plugin<Project> {
 
             val libs = libs()
             dependencies {
-                add("implementation", libs.findLibrary("coroutines-core").get().get())
+                add("api", libs.findLibrary("javax.inject").get().get())
+                add("implementation", libs.findLibrary("coroutines.core").get().get())
+                add("compileOnly", libs.findLibrary("dagger").get().get())
+                add("ksp", libs.findLibrary("dagger.compiler").get().get())
+                add("testImplementation", libs.findLibrary("dagger").get().get())
                 add("testImplementation", libs.findLibrary("junit").get().get())
                 add("testImplementation", libs.findLibrary("mockk").get().get())
                 add("testImplementation", libs.findLibrary("turbine").get().get())

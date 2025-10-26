@@ -1,9 +1,9 @@
 package pocketshop.buildlogic
 
-import com.android.build.gradle.LibraryExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 
 class AndroidLibraryConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -12,12 +12,14 @@ class AndroidLibraryConventionPlugin : Plugin<Project> {
             pluginManager.apply("org.jetbrains.kotlin.android")
             configureAndroidCommon()
 
-            val ext = extensions.getByType<LibraryExtension>()
-            val defaultNs = "com.ronaldsantos.pocketshop.feature." + path.replace(":", ".").trim('.')
-            if (ext.namespace == null) {
-                ext.namespace = defaultNs
+            extensions.configure<LibraryExtension> {
+                if (namespace == null) {
+                    namespace = "com.ronaldsantos.pocketshop.feature." + path.replace(":", ".").trim('.')
+                }
+                buildFeatures {
+                    buildConfig = true
+                }
             }
-            ext.buildFeatures.buildConfig = true
         }
     }
 }

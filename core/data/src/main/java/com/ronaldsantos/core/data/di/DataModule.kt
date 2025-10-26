@@ -10,27 +10,36 @@ import com.ronaldsantos.core.data.repository.AuthRepositoryImpl
 import com.ronaldsantos.core.data.repository.ProductRepositoryImpl
 import com.ronaldsantos.domain.repo.AuthRepository
 import com.ronaldsantos.domain.repo.ProductRepository
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataModule {
-    @Provides @Singleton fun provideApi(): ApiService = FakeApiService()
+interface DataModule {
+    @Binds
+    fun bindApiService(
+        impl: FakeApiService,
+    ): ApiService
 
-    @Provides @Singleton fun provideRemote(api: ApiService): RemoteDataSource =
-        RemoteDataSourceImpl(api)
-    @Provides @Singleton fun provideLocal(): LocalDataSource = InMemoryLocalDataSource()
+    @Binds
+    fun bindRemoteDataSource(
+        impl: RemoteDataSourceImpl,
+    ): RemoteDataSource
 
-    @Provides @Singleton fun provideProductRepo(
-        remote: RemoteDataSource,
-        local: LocalDataSource,
-    ): ProductRepository = ProductRepositoryImpl(remote, local)
+    @Binds
+    fun bindLocalDataSource(
+        impl: InMemoryLocalDataSource,
+    ): LocalDataSource
 
-    @Provides @Singleton fun provideAuthRepo(
-        remote: RemoteDataSource,
-    ): AuthRepository = AuthRepositoryImpl(remote)
+    @Binds
+    fun bindProductRepository(
+        impl: ProductRepositoryImpl,
+    ): ProductRepository
+
+    @Binds
+    fun bindAuthRepository(
+        impl: AuthRepositoryImpl,
+    ): AuthRepository
 }

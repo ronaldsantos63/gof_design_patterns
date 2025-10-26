@@ -1,9 +1,9 @@
 package pocketshop.buildlogic
 
-import com.android.build.gradle.AppExtension
+import com.android.build.api.dsl.ApplicationExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 
 class AndroidApplicationConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -12,14 +12,12 @@ class AndroidApplicationConventionPlugin : Plugin<Project> {
             pluginManager.apply("org.jetbrains.kotlin.android")
             configureAndroidCommon()
 
-            extensions.getByType<AppExtension>().apply {
-                val libs = libs()
+            extensions.configure<ApplicationExtension> {
                 defaultConfig {
-                    targetSdk = libs.findVersion("targetSdk").get().requiredVersion.toInt()
+                    targetSdk = libs().findVersion("targetSdk").get().requiredVersion.toInt()
                 }
-
-                buildTypes.getByName("debug").isMinifyEnabled = false
-                buildTypes.getByName("release").apply {
+                buildTypes.named("debug").configure { isMinifyEnabled = false }
+                buildTypes.named("release").configure {
                     isMinifyEnabled = true
                     proguardFiles(
                         getDefaultProguardFile("proguard-android-optimize.txt"),

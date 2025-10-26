@@ -8,6 +8,15 @@ plugins {
     alias(libs.plugins.android.dynamic.feature) apply false
 }
 
+// Garante versão de JavaPoet no classpath de plugins (DataBinding traz 1.10.0)
+buildscript {
+    configurations.classpath {
+        resolutionStrategy {
+            force(libs.javapoet)
+        }
+    }
+}
+
 tasks.register("ci") {
     group = "verification"
     description = "Build + Test de todos os módulos"

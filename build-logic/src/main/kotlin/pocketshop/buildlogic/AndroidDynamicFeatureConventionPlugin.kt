@@ -3,7 +3,7 @@ package pocketshop.buildlogic
 import com.android.build.api.dsl.DynamicFeatureExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.kotlin.dsl.getByType
+import org.gradle.kotlin.dsl.configure
 
 class AndroidDynamicFeatureConventionPlugin : Plugin<Project> {
     override fun apply(target: Project) {
@@ -12,10 +12,10 @@ class AndroidDynamicFeatureConventionPlugin : Plugin<Project> {
             pluginManager.apply("org.jetbrains.kotlin.android")
             configureAndroidCommon()
 
-            val ext = extensions.getByType<DynamicFeatureExtension>()
-            if (ext.namespace == null) {
-                val defaultNs = "com.ronaldsantos.pocketshop.feature." + name.substringAfter(":")
-                ext.namespace = defaultNs
+            extensions.configure<DynamicFeatureExtension> {
+                if (namespace == null) {
+                    namespace = "com.ronaldsantos.pocketshop.feature." + name.substringAfterLast(":")
+                }
             }
         }
     }
